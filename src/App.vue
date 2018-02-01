@@ -56,11 +56,13 @@
           this.$store.state.goodsData = res.data.goods;
           this.$store.state.ratingDataList = res.data.ratings;
         })
-      }
+      },
     },
     created(){
-      this.showResume();
       this.getAndSaveDataToStore();
+    },
+    mounted(){
+      this.showResume();
     },
     watch:{
       // store中的sellerData完成改变后，再赋值给这里的数据供模板渲染或传值
@@ -73,5 +75,4 @@
 
 <style lang="less">
   @import "./assets/css/reset.css";
-  .animated {animation-duration: 0.5s;}
 </style>

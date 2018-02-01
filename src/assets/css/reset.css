@@ -33,10 +33,14 @@ body,HTML{
   font-family: 'PingFang SC','STHeitiSC-light','Helvetice-Light',arial,sans-serif;
 }
 
-
 .clearfix:after {
   display: block;
   content: '';
   height: 0;
   clear: both;
 }
+
+/*vue动画时长*/
+.animated {animation-duration: 0.5s;}
+
+
