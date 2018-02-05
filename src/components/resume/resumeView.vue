@@ -44,14 +44,6 @@
           count:0,
         }
       },
-      watch:{
-        // 观察count,为0时调用closeResume
-        count(){
-          if(this.count == 0){
-            this.closeResume();
-          }
-        },
-      },
       methods:{
         // 关闭resume页
         closeResume(){
@@ -60,11 +52,14 @@
         // 倒数
         countDown(sec){
           this.count = sec;
-          setInterval(() => {
+          let timer = setInterval(() => {
             this.count --;
-          },1000)
-        }
-
+            if(this.count  <= 0){
+              this.closeResume();
+              clearInterval(timer)
+            }
+          },1000);
+        },
       },
       mounted(){
         // 设置倒数秒数并开始倒数
