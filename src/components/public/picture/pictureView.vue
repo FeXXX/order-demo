@@ -1,5 +1,5 @@
 <template>
-    <div id="pictureView" @click="closePicture()">
+    <div id="pictureView" @click="closePicture">
       <div class="content">
         <img :src="pictureUrl" alt="">
       </div>
@@ -14,10 +14,15 @@
           type:String
         }
       },
+      data(){
+        return {
+          zoomCtrl:false
+        }
+      },
       methods:{
         closePicture(){
           this.$store.dispatch('hidePicture');
-        }
+        },
       }
     }
 </script>

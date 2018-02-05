@@ -33,6 +33,8 @@
       </div>
       <!--倒数关闭按钮-->
       <button class="close-btn btn btn-danger" @click="closeResume()">点击关闭({{count}})s</button>
+      <!--暂定倒计时按钮-->
+      <button class="pause-btn btn btn-default" @click="pauseCount()">{{pauseTxt}}</button>
     </div>
 </template>
 
@@ -41,7 +43,26 @@
       name: "resume-view",
       data(){
         return {
-          count:0,
+          // 倒计时
+          count:5,
+          // 暂定开始按钮状态
+          pause:true,
+          // 计时器
+          timer:null,
+        }
+      },
+      computed:{
+        pauseTxt(){
+          return this.pause ? '点击暂定' : '点击继续';
+        }
+      },
+      watch:{
+        // count为0时，关闭页面
+        count(data){
+          if(data <= 0){
+            clearInterval(this.timer);
+            this.closeResume();
+          }
         }
       },
       methods:{
@@ -50,20 +71,26 @@
           this.$store.dispatch('hideResume')
         },
         // 倒数
-        countDown(sec){
-          this.count = sec;
-          let timer = setInterval(() => {
+        countDown(){
+          console.log(this.count);
+          this.timer = setInterval(() => {
             this.count --;
-            if(this.count  <= 0){
-              this.closeResume();
-              clearInterval(timer)
-            }
           },1000);
         },
+        // 暂定/开始倒数
+        pauseCount(){
+          if(this.pause){
+            this.pause = false;
+            clearInterval(this.timer);
+          }else{
+            this.pause = true;
+            this.countDown();
+          }
+        }
       },
       mounted(){
-        // 设置倒数秒数并开始倒数
-        this.countDown(5);
+        // 开始倒数
+        this.countDown();
       }
     }
 </script>
@@ -90,6 +117,15 @@
       font-size: 20/@r;
       font-weight: 500;
       color: rgb(0,0,0);
+    }
+    .pause-btn {
+      position: absolute;
+      right: 250/@r;
+      top: 20/@r;
+      width: 200/@r;
+      height: 50/@r;
+      font-size: 20/@r;
+      font-weight: 500;
     }
     .name {
       /*background-color:pink;*/

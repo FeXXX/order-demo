@@ -203,6 +203,7 @@
             line-height: 24/@r;
             color: #fff;
             font-weight: 200;
+            font-size: 20/@r;
           }
         }
       }
